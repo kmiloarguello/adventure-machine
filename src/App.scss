@@ -1,9 +1,36 @@
+$secondary-color: rgba(236, 240, 241,1.0); //color blanco  
+$boton-negro: rgba(20,20,20,0.3);
+$boton-amarillo: #f8e9db;
+$letra-hover-negro: #141414;
+
+$rojo: rgba(175, 46, 80, 0.47);
+$rojo_hover: rgba(212,33,79,0.64);
+$rojo_activo: #D4214F;
+
+$verde: rgba(33, 208, 168, 0.37);
+$verde_hover: rgba(10, 253, 204, 0.64);
+$verde_activo: #0AFDCC;
+
+$azul: rgba(56, 75, 107, 0.32);
+$azul_hover: rgba(44, 100, 196, 0.64);
+$azul_activo: #2C64C4;
+
+
 .AdventureMachine {
   text-align: center;
+  height: 100vh;
+  background-image: url(./img/background.jpg);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
 
 #background-image{
   width: 100%;
+  height: 100vh;
+  @media screen and (max-width: 1800px){
+    width: auto;
+  }
 }
 
 .App-logo {
@@ -25,4 +52,65 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+// ---------------------------------------------------------------------------------------------------------
+// MAINBOX
+// ---------------------------------------------------------------------------------------------------------
+
+
+
+@mixin transform($rotacion){
+  -moz-transform: rotate($rotacion);
+  -webkit-transform: rotate($rotacion);
+  -o-transform: rotate($rotacion);
+  -ms-transform: rotate($rotacion);  
+  transform: rotate($rotacion);  
+}
+
+.transicion{
+  -webkit-transition: all ease 0.3s;
+  -moz-transition: all ease 0.3s;
+  -o-transition: all ease 0.3s;
+  transition: all ease 0.3s;  
+}
+
+.contenedor{
+  width: 400px;
+  height: 100vh;
+  text-align: center;
+  display: inline-block;
+  
+  ul{
+    width: 90%;
+    margin-top: 20vh;
+    list-style-type: none;
+    @include transform(45deg);
+    text-align: center;
+    display: inline-block;
+    
+    li{
+      width: 100px;
+      height: 100px;
+      float: left;
+      margin: 5px;
+      cursor: pointer;
+      border: 1px solid rgba(0,0,0,0.17);
+      background-color: rgba(56, 75, 107, 0.32);
+      @extend .transicion;
+      &:hover{
+        background-color: $azul_activo !important;
+      }  
+    }
+  }
+}
+
+.box-green{
+  background-color: $verde_activo !important;
+}
+.box-red{
+  background-color: $rojo_activo !important;
+}
+.box-blue{
+  background-color: $azul_activo !important;
 }
