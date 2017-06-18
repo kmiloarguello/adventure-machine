@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import {Row} from 'react-materialize'
 import SingleBox from './SingleBox.js'
-import Sound from '../sounds/01.mp3'
+import Worldsbeat from '../sounds/01.mp3'
+import Worlds from '../sounds/worlds_mezcla.mp3'
 
 
 function BufferLoader(context, urlList, callback) {
@@ -58,10 +59,11 @@ function init() {
   bufferLoader = new BufferLoader(
     context,
     [
-      Sound
+      Worldsbeat,
+      Worlds
     ],
     finishedLoading
-    );
+    )
 
   bufferLoader.load();
 }
@@ -70,51 +72,51 @@ function finishedLoading() {
 }
 
 function playSound(buffer, time){
-  let source = context.createBufferSource();
-  source.buffer = buffer;
-  source.connect(context.destination);
-  source.start(time);  
+  let source = context.createBufferSource()
+  source.buffer = buffer
+  source.connect(context.destination)
+  source.start(time)
 }
 
-function startPlayingRhythm(bufferList) {
-  let beat = bufferList[0];
-  let startTime = context.currentTime + 0.100;
-  let tempo = 150;
-  let quarterNoteTime = 60 / tempo;
+function startPlayingRhythm(bufferList, song) {
+  let beat = bufferList[song]
+  let startTime = context.currentTime + 0.001
+  let tempo = 150
+  let quarterNoteTime = 60 / tempo
 
-  for (var i = 0; i < 16; i++) {
-      playSound(beat, startTime + i*quarterNoteTime);
-  };
+  playSound(beat, startTime)
 
 }
-
 
 export default class MainBox extends Component {
   constructor(props){
       super(props)
-      this.playSound = this.playSound.bind(this)
+      this.playSoundA = this.playSoundA.bind(this)
   }
   componentDidMount(){
       init()
   }
-  playSound(){
-      startPlayingRhythm(bufferLoader.bufferList)
-  }  
+  playSoundA(){
+      startPlayingRhythm(bufferLoader.bufferList, 0)
+  }
+  playSoundB(){
+      startPlayingRhythm(bufferLoader.bufferList, 1)
+  }    
   render() {
     return (
       <div className="container">
         <Row>
           <div className='contenedor valign-wrapper'>
             <ul>
-              <SingleBox onClick={this.playSound}/>
-              <SingleBox onClick={this.playSound}/>
-              <SingleBox onClick={this.playSound}/>
-              <SingleBox onClick={this.playSound}/>
-              <SingleBox onClick={this.playSound}/>
-              <SingleBox onClick={this.playSound}/>
-              <SingleBox onClick={this.playSound}/>
-              <SingleBox onClick={this.playSound}/>
-              <SingleBox onClick={this.playSound}/>
+              <SingleBox onClick={this.playSoundA}/>
+              <SingleBox onClick={this.playSoundB}/>
+              <SingleBox onClick={this.playSoundA}/>
+              <SingleBox onClick={this.playSoundB}/>
+              <SingleBox onClick={this.playSoundA}/>
+              <SingleBox onClick={this.playSoundB}/>
+              <SingleBox onClick={this.playSoundA}/>
+              <SingleBox onClick={this.playSoundB}/>
+              <SingleBox onClick={this.playSoundA}/>
 
             </ul>
           </div>
