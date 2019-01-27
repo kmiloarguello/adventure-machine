@@ -24,7 +24,7 @@ export default class Sound {
         this.init();
         this.source.loop = true;
         this.source.start(this.context.currentTime);
-        console.log("Start",this)
+        console.log("Start",this.source)
     }
     setTimes(duration,currentTime){
         this.duration = duration;
@@ -37,7 +37,7 @@ export default class Sound {
             console.log(self)
             self.hasStopped(elem);
         }
-        console.log("shouldStop",this);
+        console.log("shouldStop",this.source);
     }
     hasStopped(elem){
         console.log("Stopped")
@@ -48,7 +48,6 @@ export default class Sound {
         //     0.001,
         //     this.context.currentTime + 0.5
         // );
-        console.log(this.source);
         this.source.stop(this.context.currentTime + 0.5);
     }
 }

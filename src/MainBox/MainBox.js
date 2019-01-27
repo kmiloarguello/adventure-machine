@@ -34,23 +34,58 @@ export default class MainBox extends Component {
 	
 	let index = parseInt(e.target.getAttribute("data-sound"), 10);
 
-	// console.log(this.buffer.getSoundByIndex(index));
-	// this.sound = new Sound(this.audioContext, this.buffer.getSoundByIndex(index));
+	switch (index) {
+		case 0:
+			this.sound = new Sound(this.audioContext, this.buffer.getSoundByIndex(0));
+			var hasActive = e.target.classList.contains("active");
 
-	if(e.target.classList.contains("active")){
-		
-		this.setState({
-			isPlaying0 : false
-		});
-		this.sound.shouldStopSong(e.target);
-	}else{
-		e.target.classList.add("active");
-		this.setState({
-			isPlaying0 : true
-		})
-		this.sound = new Sound(this.audioContext, this.buffer.getSoundByIndex(index));
-		this.sound.play()
+			if(!hasActive){
+				this.sound.play();
+				this.setState({
+					hasEnded : this.sound
+				})
+				e.target.classList.add("active");
+
+			}else{
+				this.state.hasEnded.shouldStopSong(e.target)
+			}
+
+			break;
+		case 1:
+			this.sound1 = new Sound(this.audioContext, this.buffer.getSoundByIndex(1));
+			this.sound1.play()
+			if(e.target.classList.contains("active")){
+				this.sound1.shouldStopSong(e.target);
+			}else{
+				e.target.classList.add("active");
+			}
+			break;
+		case 3:
+			this.sound2 = new Sound(this.audioContext, this.buffer.getSoundByIndex(2));
+			this.sound2.play()
+			if(e.target.classList.contains("active")){
+				this.sound2.shouldStopSong(e.target);
+			}else{
+				e.target.classList.add("active");
+			}
+		default:
+			this.sound = new Sound(this.audioContext, this.buffer.getSoundByIndex(0));
+			this.sound.play()
+			if(e.target.classList.contains("active")){
+				this.sound.shouldStopSong(e.target);
+			}else{
+				e.target.classList.add("active");
+			}
+			break;
 	}
+
+	
+
+
+
+
+
+	
 
 
 
