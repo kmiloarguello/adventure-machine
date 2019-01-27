@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { Row } from "react-materialize";
+import { Row, Col } from "react-materialize";
 import SingleBox from "./SingleBox.js";
-import sounds from './sounds.js';
+import sounds from "./sounds.js";
 import Buffer from "./Buffer.js";
 import Sound from "./Sound.js";
 
@@ -12,14 +12,85 @@ let AudioContext = window.AudioContext || window.webkitAudioContext;
 export default class MainBox extends Component {
   constructor(props) {
 	super(props);
-	this.playSoundA = this.playSoundA.bind(this);
-	this.audioContext = new AudioContext();
-	this.buffer = new Buffer(this.audioContext, sounds);
-	this.buffer.loadAll();
+	this.state = {
+		isPlaying0: false,
+		isPlaying1: false,
+		isPlaying2: false,
+		isPlaying3: false,
+		isPlaying4: false,
+		isPlaying5: false,
+		isPlaying6: false,
+		isPlaying7: false,
+		isPlaying8: false,
+		hasEnded: false,
+		shouldEnd: false,
+	}
+    this.playSoundA = this.playSoundA.bind(this);
+    this.audioContext = new AudioContext();
+    this.buffer = new Buffer(this.audioContext, sounds);
+    this.buffer.loadAll();
   }
-  playSoundA(){
-	this.sound = new Sound(this.audioContext,this.buffer.getSoundByIndex(0));
-	this.sound.play();
+  playSoundA(e) {
+	
+	let index = parseInt(e.target.getAttribute("data-sound"), 10);
+
+	// console.log(this.buffer.getSoundByIndex(index));
+	// this.sound = new Sound(this.audioContext, this.buffer.getSoundByIndex(index));
+
+	if(e.target.classList.contains("active")){
+		
+		this.setState({
+			isPlaying0 : false
+		});
+		this.sound.shouldStopSong(e.target);
+	}else{
+		e.target.classList.add("active");
+		this.setState({
+			isPlaying0 : true
+		})
+		this.sound = new Sound(this.audioContext, this.buffer.getSoundByIndex(index));
+		this.sound.play()
+	}
+
+
+
+
+
+
+
+
+
+
+
+	// // let activeClass = document.querySelectorAll("li.active"); 
+	// let index = parseInt(e.target.getAttribute("data-sound"));
+	
+	// if(!this.state["isPlaying" + index]){
+
+	// 	console.log("Sound" + index)
+	// 	this.sound = new Sound(this.audioContext, this.buffer.getSoundByIndex(index));
+
+	// 	if(e.target.classList.contains("active")){
+	// 		e.target.classList.remove("active");
+	// 		this.sound.stop()
+	// 	}
+
+	// 	this.sound.play();
+	
+	// 	e.target.classList.add("active");
+
+	// 	this.setState({
+	// 		["isPlaying" + index ] : true
+	// 	})
+		
+	
+	// }else{
+	// 	e.target.classList.remove("active");
+	// 	//this.sound.setTimes(this.sound.buffer.duration,this.sound.context.currentTime);
+	// 	//if(this.sound) this.sound.stop();
+	// 	// 	e.target.classList.add("disabled");
+	// }
+	
   }
   render() {
     return (
@@ -27,18 +98,44 @@ export default class MainBox extends Component {
         <Row>
           <div className="contenedor valign-wrapper">
             <ul>
-              <SingleBox onClick={this.playSoundA} />
-              {/*<SingleBox onClick={this.playSoundB} />
-              <SingleBox onClick={this.playSoundA} />
-              <SingleBox onClick={this.playSoundB} />
-              <SingleBox onClick={this.playSoundA} />
-              <SingleBox onClick={this.playSoundB} />
-              <SingleBox onClick={this.playSoundA} />
-              <SingleBox onClick={this.playSoundB} />
-              <SingleBox onClick={this.playSoundA} />*/}
+              <SingleBox dataSound={0} className={"box-green"} onClick={this.playSoundA} />
+              <SingleBox dataSound={1} className={"box-red"} onClick={this.playSoundA} />
+              <SingleBox dataSound={2} className={"box-red"} onClick={this.playSoundA} />
+              <SingleBox dataSound={3} className={"box-blue"} onClick={this.playSoundA} />
+              <SingleBox dataSound={4} className={"box-green"} onClick={this.playSoundA} />
+              <SingleBox dataSound={5} className={"box-red"} onClick={this.playSoundA} />
+              <SingleBox dataSound={6} className={"box-blue"} onClick={this.playSoundA} />
+              <SingleBox dataSound={7} className={"box-blue"} onClick={this.playSoundA} />
+              <SingleBox dataSound={8} className={"box-green"} onClick={this.playSoundA} />
             </ul>
           </div>
         </Row>
+        <Row>
+          <Col s={12} m={6} >
+            <p className="range-field left">
+              <label>
+                <input
+                  type="range"
+                  id="volume-control"
+                  min="0"
+                  max="100"
+                  className="slider-control"
+                />
+                <span>Volume</span>
+              </label>
+            </p>
+          </Col>
+          <Col s={12} m={6} >
+            <p className="range-field right">
+              <a href="#">About</a>
+            </p>
+          </Col>
+        </Row>
+		<Row>
+			<Col s={12} className="legals">
+				<small>{new Date().getFullYear()} | Camilo Λrguello ®</small>
+			</Col>
+		</Row>
       </div>
     );
   }

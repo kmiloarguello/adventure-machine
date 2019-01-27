@@ -1,8 +1,14 @@
 
+let self;
+
 export default class Sound {
     constructor(context, buffer) {
+        self = this;
         this.context = context;
         this.buffer = buffer;
+
+        this.hasStopped = this.hasStopped.bind(this);
+        // this.shouldStopSong = this.shouldStopSong.bind(this);
     }
 
     init() {
@@ -16,14 +22,33 @@ export default class Sound {
 
     play() {
         this.init();
+        this.source.loop = true;
         this.source.start(this.context.currentTime);
+        console.log("Start",this)
     }
-
+    setTimes(duration,currentTime){
+        this.duration = duration;
+        this.currentTime = currentTime;
+    }
+    shouldStopSong(elem){
+        // Stop looping to achieve when audio has ended
+        this.source.loop = false;
+        this.source.onended = function() {
+            console.log(self)
+            self.hasStopped(elem);
+        }
+        console.log("shouldStop",this);
+    }
+    hasStopped(elem){
+        console.log("Stopped")
+        elem.classList.remove("active");
+    }
     stop() {
-        this.gainNode.gain.exponentialRampToValueAtTime(
-            0.001,
-            this.context.currentTime + 0.5
-        );
+        // this.gainNode.gain.exponentialRampToValueAtTime(
+        //     0.001,
+        //     this.context.currentTime + 0.5
+        // );
+        console.log(this.source);
         this.source.stop(this.context.currentTime + 0.5);
     }
 }

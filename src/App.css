@@ -40,7 +40,6 @@
 
 .contenedor {
   width: 400px;
-  height: 100vh;
   text-align: center;
   display: inline-block; }
   .contenedor ul {
@@ -60,16 +59,41 @@
       float: left;
       margin: 5px;
       cursor: pointer;
-      border: 1px solid rgba(0, 0, 0, 0.17);
-      background-color: rgba(56, 75, 107, 0.32); }
-      .contenedor ul li:hover {
-        background-color: #2C64C4 !important; }
+      border: 1px solid rgba(20, 20, 20, 0.3); }
+      .contenedor ul li.disabled {
+        pointer-events: none; }
 
 .box-green {
-  background-color: #0AFDCC !important; }
+  background-color: rgba(33, 208, 168, 0.37); }
+  .box-green:hover {
+    background-color: rgba(10, 253, 204, 0.64); }
+  .box-green.active {
+    background-color: #0AFDCC !important; }
 
 .box-red {
-  background-color: #D4214F !important; }
+  background-color: rgba(175, 46, 80, 0.47); }
+  .box-red:hover {
+    background-color: rgba(212, 33, 79, 0.64); }
+  .box-red.active {
+    background-color: #D4214F !important; }
 
 .box-blue {
-  background-color: #2C64C4 !important; }
+  background-color: rgba(56, 75, 107, 0.32); }
+  .box-blue:hover {
+    background-color: rgba(44, 100, 196, 0.64); }
+  .box-blue.active {
+    background-color: #2C64C4 !important; }
+
+.range-field {
+  width: 100px;
+  margin: 20px;
+  border: 1px solid #222;
+  background: rgba(20, 20, 20, 0.3);
+  color: #f8e9db;
+  padding: 10px; }
+
+input[type=range] {
+  border: none; }
+
+.legals {
+  color: aliceblue; }

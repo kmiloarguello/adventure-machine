@@ -77,7 +77,6 @@ $azul_activo: #2C64C4;
 
 .contenedor{
   width: 400px;
-  height: 100vh;
   text-align: center;
   display: inline-block;
   
@@ -95,22 +94,55 @@ $azul_activo: #2C64C4;
       float: left;
       margin: 5px;
       cursor: pointer;
-      border: 1px solid rgba(0,0,0,0.17);
-      background-color: rgba(56, 75, 107, 0.32);
+      border: 1px solid $boton-negro;
       @extend .transicion;
-      &:hover{
-        background-color: $azul_activo !important;
-      }  
+      &.disabled{
+        pointer-events: none;
+      }
     }
   }
 }
 
 .box-green{
-  background-color: $verde_activo !important;
+  &:hover{
+    background-color: $verde_hover;
+  }
+  &.active{
+    background-color: $verde_activo !important;
+  }
+  background-color: $verde;
 }
 .box-red{
-  background-color: $rojo_activo !important;
+  &:hover{
+    background-color: $rojo_hover;
+  }
+  &.active{
+    background-color: $rojo_activo !important;
+  }
+  background-color: $rojo;
 }
 .box-blue{
-  background-color: $azul_activo !important;
+  &:hover{
+    background-color: $azul_hover;
+  }
+  &.active{
+    background-color: $azul_activo !important;
+  }
+  background-color: $azul;
 }
+
+.range-field{
+  width: 100px;
+  margin: 20px;
+  border: 1px solid #222;
+  background: $boton-negro;
+  color: #f8e9db;
+  padding: 10px;
+}
+input[type=range]{
+  border: none;
+}
+.legals{
+  color: aliceblue;
+}
+
