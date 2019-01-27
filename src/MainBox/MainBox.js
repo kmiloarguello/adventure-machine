@@ -36,59 +36,39 @@ export default class MainBox extends Component {
 
 	switch (index) {
 		case 0:
-			this.sound = new Sound(this.audioContext, this.buffer.getSoundByIndex(0));
-			var hasActive = e.target.classList.contains("active");
-
-			if(!hasActive){
-				this.sound.play();
-				this.setState({
-					hasEnded : this.sound
-				})
-				e.target.classList.add("active");
-
-			}else{
-				this.state.hasEnded.shouldStopSong(e.target)
-			}
-
+			this.handleSound(0,e);
 			break;
 		case 1:
-			this.sound1 = new Sound(this.audioContext, this.buffer.getSoundByIndex(1));
-			this.sound1.play()
-			if(e.target.classList.contains("active")){
-				this.sound1.shouldStopSong(e.target);
-			}else{
-				e.target.classList.add("active");
-			}
+			this.handleSound(1,e)
+			break;
+		case 2:
+			this.handleSound(2,e)
 			break;
 		case 3:
-			this.sound2 = new Sound(this.audioContext, this.buffer.getSoundByIndex(2));
-			this.sound2.play()
-			if(e.target.classList.contains("active")){
-				this.sound2.shouldStopSong(e.target);
-			}else{
-				e.target.classList.add("active");
-			}
+			this.handleSound(3,e)
+			break;
+		case 4:
+			this.handleSound(4,e)
+			break;
+		case 5:
+			this.handleSound(5,e)
+			break;
+		case 6:
+			this.handleSound(6,e)
+			break;
+		case 7:
+			this.handleSound(7,e)
+			break;
+		case 8:
+			this.handleSound(8,e)
+			break;
 		default:
-			this.sound = new Sound(this.audioContext, this.buffer.getSoundByIndex(0));
-			this.sound.play()
-			if(e.target.classList.contains("active")){
-				this.sound.shouldStopSong(e.target);
-			}else{
-				e.target.classList.add("active");
-			}
+			this.handleSound(0,e)
 			break;
 	}
 
-	
-
-
-
-
 
 	
-
-
-
 
 
 
@@ -126,6 +106,21 @@ export default class MainBox extends Component {
 	// 	// 	e.target.classList.add("disabled");
 	// }
 	
+  }
+  handleSound(index,e){
+	var sound = new Sound(this.audioContext, this.buffer.getSoundByIndex(index));
+	var hasActive = e.target.classList.contains("active");
+
+	if(!hasActive){
+		sound.play();
+		this.setState({
+			["isPlaying" + index] : sound
+		})
+		e.target.classList.add("active");
+
+	}else{
+		this.state["isPlaying" + index].shouldStopSong(e.target);
+	}
   }
   render() {
     return (
