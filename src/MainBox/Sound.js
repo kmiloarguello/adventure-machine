@@ -20,11 +20,11 @@ export default class Sound {
         this.gainNode.gain.setValueAtTime(0.8, this.context.currentTime);
     }
 
-    play() {
+    play(value) {
         this.init();
         this.source.loop = true;
-        this.source.start(this.context.currentTime);
-        console.log("Start",this.source)
+        this.source.start(value);
+        console.log("value",value)
     }
     setTimes(duration,currentTime){
         this.duration = duration;
@@ -37,7 +37,6 @@ export default class Sound {
             console.log(self)
             self.hasStopped(elem);
         }
-        console.log("shouldStop",this.source);
     }
     hasStopped(elem){
         console.log("Stopped")

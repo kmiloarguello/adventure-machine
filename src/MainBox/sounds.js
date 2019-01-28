@@ -13,8 +13,8 @@ import music3 from '../sounds/s5.wav';
 
 const sounds = [
     voice1,
-    base2,
-    base1,
+    base3,
+    base3,
     music1,
     voice2,
     base3,

@@ -24,6 +24,10 @@ export default class MainBox extends Component {
 		isPlaying8: false,
 		hasEnded: false,
 		shouldEnd: false,
+		counter: 0,
+		tInicialCancion: 0,
+		tFinalCancion: 0,
+		currentTime: 0
 	}
     this.playSoundA = this.playSoundA.bind(this);
     this.audioContext = new AudioContext();
@@ -66,53 +70,33 @@ export default class MainBox extends Component {
 			this.handleSound(0,e)
 			break;
 	}
+	this.setState({
+		counter: this.state.counter + 1
+	})
 
 
-	
-
-
-
-
-
-
-
-
-	// // let activeClass = document.querySelectorAll("li.active"); 
-	// let index = parseInt(e.target.getAttribute("data-sound"));
-	
-	// if(!this.state["isPlaying" + index]){
-
-	// 	console.log("Sound" + index)
-	// 	this.sound = new Sound(this.audioContext, this.buffer.getSoundByIndex(index));
-
-	// 	if(e.target.classList.contains("active")){
-	// 		e.target.classList.remove("active");
-	// 		this.sound.stop()
-	// 	}
-
-	// 	this.sound.play();
-	
-	// 	e.target.classList.add("active");
-
-	// 	this.setState({
-	// 		["isPlaying" + index ] : true
-	// 	})
-		
-	
-	// }else{
-	// 	e.target.classList.remove("active");
-	// 	//this.sound.setTimes(this.sound.buffer.duration,this.sound.context.currentTime);
-	// 	//if(this.sound) this.sound.stop();
-	// 	// 	e.target.classList.add("disabled");
-	// }
-	
   }
   handleSound(index,e){
 	var sound = new Sound(this.audioContext, this.buffer.getSoundByIndex(index));
 	var hasActive = e.target.classList.contains("active");
 
 	if(!hasActive){
-		sound.play();
+		// console.log("",sound.buffer.duration)
+		if(this.state.counter > 0){
+
+			this.setState({
+				tInicialCancion : sound.context.currentTime,
+				tFinalCancion: this.state.tInicialCancion + sound.buffer.duration,
+				currentTime: this.state.tFinalCancion - sound.context.currentTime
+			})
+
+			// TODO: Setear el valor que debe esperar la nueva cancion antes de reproducir
+			sound.play(Math.round(Math.abs(this.state.currentTime)));	
+			
+		}else{
+			sound.play(0);
+		}
+		
 		this.setState({
 			["isPlaying" + index] : sound
 		})
@@ -120,6 +104,7 @@ export default class MainBox extends Component {
 
 	}else{
 		this.state["isPlaying" + index].shouldStopSong(e.target);
+		// console.log("duracion", this.state["isPlaying" + index].buffer.duration )
 	}
   }
   render() {
