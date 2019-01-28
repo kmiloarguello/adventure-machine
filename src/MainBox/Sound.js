@@ -33,14 +33,15 @@ export default class Sound {
     shouldStopSong(elem){
         // Stop looping to achieve when audio has ended
         this.source.loop = false;
+        elem.classList.remove("active");
+        elem.classList.add("changing");
         this.source.onended = function() {
-            console.log(self)
             self.hasStopped(elem);
         }
     }
     hasStopped(elem){
         console.log("Stopped")
-        elem.classList.remove("active");
+        elem.classList.remove("changing");
     }
     stop() {
         // this.gainNode.gain.exponentialRampToValueAtTime(

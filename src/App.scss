@@ -1,3 +1,4 @@
+
 $secondary-color: rgba(236, 240, 241,1.0); //color blanco  
 $boton-negro: rgba(20,20,20,0.3);
 $boton-amarillo: #f8e9db;
@@ -110,6 +111,9 @@ $azul_activo: #2C64C4;
   &.active{
     background-color: $verde_activo !important;
   }
+  &.changing{
+    animation: green-changing infinite 1s linear;
+  }
   background-color: $verde;
 }
 .box-red{
@@ -119,6 +123,9 @@ $azul_activo: #2C64C4;
   &.active{
     background-color: $rojo_activo !important;
   }
+  &.changing{
+    animation: red-changing infinite 1s linear;
+  }
   background-color: $rojo;
 }
 .box-blue{
@@ -127,6 +134,9 @@ $azul_activo: #2C64C4;
   }
   &.active{
     background-color: $azul_activo !important;
+  }
+  &.changing{
+    animation: blue-changing infinite 1s linear;
   }
   background-color: $azul;
 }
@@ -146,3 +156,18 @@ input[type=range]{
   color: aliceblue;
 }
 
+@keyframes blue-changing{
+  0%{ background-color: $azul;}
+  50% { background-color: $azul_hover; }
+  100%{ background-color: $azul; }
+}
+@keyframes red-changing{
+  0%{ background-color: $rojo;}
+  50% { background-color: $rojo_hover; }
+  100%{ background-color: $rojo ; }
+}
+@keyframes green-changing{
+  0%{ background-color: $verde;}
+  50% { background-color: $verde_hover; }
+  100%{ background-color: $verde; }
+}
